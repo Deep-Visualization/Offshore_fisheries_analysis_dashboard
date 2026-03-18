@@ -1,4 +1,5 @@
 Offshore Fisheries Analytics Dashboard
+
 An interactive data analytics dashboard built using Streamlit, Pandas, and Plotly to explore U.S. commercial offshore fisheries landings data.
 
 This project transforms raw fisheries data into an intuitive, interactive visualization tool that allows users to analyze production trends, compare states, and explore geographic distribution.
