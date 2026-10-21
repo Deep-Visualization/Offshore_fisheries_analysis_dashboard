@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offshore Fisheries Analytics</title>
+    <meta name="description" content="Explore 75 years of U.S. commercial fisheries landings (1950–2024) by state, year, pounds and dollars.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar" aria-label="Filters">
+        <h2>Filters</h2>
+
+        <h3>Quick Actions</h3>
+        <button type="button" class="side-btn" id="select-all">Select All States</button>
+        <button type="button" class="side-btn" id="clear-all">Clear All States</button>
+
+        <h3><label for="add-state">Add State</label></h3>
+        <select id="add-state"></select>
+
+        <h3>Selected States (<span id="sel-count">0</span>)</h3>
+        <ul class="state-list" id="state-list"></ul>
+
+        <fieldset class="metric">
+            <legend>Select Metric</legend>
+            <label><input type="radio" name="metric" value="Pounds" checked> Pounds</label>
+            <label><input type="radio" name="metric" value="Dollars"> Dollars</label>
+        </fieldset>
+
+        <div class="years">
+            <p class="label">Select Year Range</p>
+            <div class="range-row">
+                <label for="year-from">From</label>
+                <input type="range" id="year-from">
+                <output id="out-from"></output>
+            </div>
+            <div class="range-row">
+                <label for="year-to">To</label>
+                <input type="range" id="year-to">
+                <output id="out-to"></output>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ================= MAIN ================= -->
+    <main class="main">
+        <header class="header">
+            <h1>Offshore Fisheries Analytics Dashboard</h1>
+            <p>Exploring U.S. Commercial Fisheries Landings</p>
+        </header>
+
+        <p class="status" id="status" aria-live="polite">Loading 136,000+ landings records…</p>
+
+        <div class="kpis">
+            <div class="kpi-card"><span id="kpi-total-label">Total Pounds</span><b id="kpi-total">–</b></div>
+            <div class="kpi-card"><span>Max Year Value</span><b id="kpi-max">–</b><small id="kpi-max-year"></small></div>
+            <div class="kpi-card"><span>Min Year Value</span><b id="kpi-min">–</b><small id="kpi-min-year"></small></div>
+        </div>
+
+        <hr>
+
+        <section class="chart-block">
+            <h2 id="trend-title">Pounds Over Time (Millions)</h2>
+            <div id="chart-trend" class="chart"></div>
+        </section>
+
+        <section class="chart-block">
+            <h2 id="bar-title">Top 10 States by Pounds</h2>
+            <div id="chart-bar" class="chart"></div>
+        </section>
+
+        <section class="chart-block">
+            <h2>Geographic Distribution</h2>
+            <div id="chart-map" class="chart"></div>
+            <p class="note">Florida's east and west coasts are added together. "Process at sea" landings have no state, so they aren't on the map.</p>
+        </section>
+
+        <button type="button" class="download" id="download">Download Filtered Data</button>
+
+        <footer class="footer">
+            Data: NOAA Fisheries commercial landings, 1950–2024. Confidential records without pounds or dollars are left out.
+            Built by Deepthi Kavitha ·
+            <a href="https://github.com/Deep-Visualization/Offshore_fisheries_analysis_dashboard">Source code on GitHub</a>
+        </footer>
+    </main>
+</div>
+
+<script src="app.js?v=2"></script>
+</body>
+</html>
