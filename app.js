@@ -281,6 +281,26 @@ function colorLegend(svg, color, x, y, height) {
         .call(a => a.selectAll("line").attr("stroke", AXIS));
 }
 
+// ---------- Open and close the filters ----------
+const phone = window.matchMedia("(max-width: 860px)");
+function setFilters(open) {
+    d3.select("#layout").classed("closed", !open);
+    d3.select("#open-filters").attr("aria-expanded", open);
+    d3.select("#scrim").attr("hidden", open && phone.matches ? null : true);
+    if (open) document.getElementById("close-filters").focus({ preventScroll: true });
+    // Redraw the charts once the width has settled
+    setTimeout(() => { if (D) update(); }, 320);
+}
+d3.select("#open-filters").on("click", () => setFilters(true));
+d3.select("#close-filters").on("click", () => setFilters(false));
+d3.select("#scrim").on("click", () => setFilters(false));
+document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && phone.matches && !d3.select("#layout").classed("closed")) setFilters(false);
+});
+// Phones start with the filters closed, larger screens with them open
+d3.select("#layout").classed("closed", phone.matches);
+d3.select("#open-filters").attr("aria-expanded", !phone.matches);
+
 // ---------- Download ----------
 let lastRows = [];
 d3.select("#download").on("click", () => {
