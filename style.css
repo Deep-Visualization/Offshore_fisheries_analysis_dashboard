@@ -25,10 +25,17 @@ h1, h2, h3 { color: #023e8a; }
     display: grid;
     grid-template-columns: 300px minmax(0, 1fr);
     min-height: 100vh;
+    transition: grid-template-columns 0.3s ease;
 }
+
+/* Filters closed: the sidebar slides away and the charts use the full width */
+.layout.closed { grid-template-columns: 0 minmax(0, 1fr); }
+
+.layout.closed .sidebar { visibility: hidden; }
 
 /* ---------- Sidebar ---------- */
 .sidebar {
+    overflow-x: hidden;
     background: linear-gradient(180deg, #012a4a, #014f86, #2a6f97);
     color: #FFFFFF;
     padding: 28px 24px 40px;
@@ -40,7 +47,28 @@ h1, h2, h3 { color: #023e8a; }
 
 .sidebar h2, .sidebar h3, .sidebar label, .sidebar legend, .sidebar .label { color: #FFFFFF; }
 
-.sidebar h2 { font-size: 22px; margin: 30px 0 14px; }
+.side-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 30px 0 14px;
+}
+
+.side-top h2 { font-size: 22px; margin: 0; }
+
+.close-btn, .open-btn {
+    border: 1px solid #D0D4DA;
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #262730;
+    font: inherit;
+    font-weight: 600;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.close-btn:hover, .open-btn:hover { border-color: #00b4d8; color: #0077b6; }
 
 .sidebar h3 { font-size: 19px; margin: 22px 0 10px; }
 
@@ -119,9 +147,29 @@ h1, h2, h3 { color: #023e8a; }
 .range-row output { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* ---------- Main ---------- */
-.main { padding: 40px 48px 32px; min-width: 0; }
+.main { padding: 0 48px 32px; min-width: 0; }
 
-.header { text-align: center; padding: 20px; }
+/* Grey heading bar */
+.header {
+    position: relative;
+    text-align: center;
+    background: #E3E7EB;
+    margin: 0 -48px 24px;
+    padding: 28px 24px 24px;
+    border-bottom: 1px solid #C9CFD5;
+}
+
+.layout.closed .header { padding-left: 130px; padding-right: 130px; }
+
+/* "Filters" button: shown in the heading bar only while the filters are closed */
+.open-btn {
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    display: none;
+}
+
+.layout.closed .open-btn { display: inline-block; }
 
 .header h1 { font-size: clamp(30px, 4vw, 46px); margin: 0 0 12px; line-height: 1.15; }
 
@@ -206,15 +254,29 @@ button:focus-visible, select:focus-visible, input:focus-visible {
 
 /* ---------- Phones and small tablets ---------- */
 @media (max-width: 860px) {
-    .layout { grid-template-columns: 1fr; }
-    .sidebar { position: static; height: auto; }
-    .state-list { max-height: 260px; overflow-y: auto; padding-right: 6px; }
-    .main { padding: 24px 16px; }
+    /* The filters slide in over the page as a drawer */
+    .layout, .layout.closed { grid-template-columns: 1fr; }
+    .sidebar {
+        position: fixed;
+        z-index: 40;
+        left: 0;
+        top: 0;
+        width: min(300px, 86vw);
+        height: 100vh;
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+    }
+    .layout.closed .sidebar { transform: translateX(-100%); }
+    .scrim { position: fixed; inset: 0; z-index: 30; background: rgba(0, 0, 0, 0.45); }
+    .main { padding: 0 16px 24px; }
+    .header, .layout.closed .header { margin: 0 -16px 20px; padding: 64px 16px 20px; }
+    .open-btn { left: 16px; top: 16px; display: inline-block; }
     .kpis { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     body { animation: none; }
+    .layout, .sidebar { transition: none; }
     .kpi-card { transition: none; }
 }
 
