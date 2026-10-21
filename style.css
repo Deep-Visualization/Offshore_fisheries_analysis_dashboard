@@ -1,0 +1,221 @@
+/* Same ocean look as offshore_fisheries_dashboard.py */
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Source Sans 3", "Source Sans Pro", Arial, sans-serif;
+    color: #262730;
+    /* Animated background */
+    background: linear-gradient(-45deg, #caf0f8, #ade8f4, #90e0ef, #e0fbfc);
+    background-size: 400% 400%;
+    background-attachment: fixed;
+    animation: gradientWave 15s ease infinite;
+}
+
+@keyframes gradientWave {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+h1, h2, h3 { color: #023e8a; }
+
+.layout {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    min-height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+    background: linear-gradient(180deg, #012a4a, #014f86, #2a6f97);
+    color: #FFFFFF;
+    padding: 28px 24px 40px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar h2, .sidebar h3, .sidebar label, .sidebar legend, .sidebar .label { color: #FFFFFF; }
+
+.sidebar h2 { font-size: 22px; margin: 30px 0 14px; }
+
+.sidebar h3 { font-size: 19px; margin: 22px 0 10px; }
+
+.side-btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 9px 12px;
+    border: 1px solid #D0D4DA;
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #262730;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.side-btn:hover { border-color: #00b4d8; color: #0077b6; }
+
+.sidebar select {
+    width: 100%;
+    padding: 9px 10px;
+    border-radius: 8px;
+    border: 0;
+    font: inherit;
+    color: #262730;
+    background: #FFFFFF;
+}
+
+.state-list { list-style: none; margin: 0; padding: 0; }
+
+.state-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 5px 0;
+}
+
+.state-list button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #D0D4DA;
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #262730;
+    cursor: pointer;
+    font: inherit;
+}
+
+.state-list button:hover { border-color: #ff4b4b; color: #ff4b4b; }
+
+.state-list .empty { color: #FFFFFF; font-style: italic; }
+
+.metric { border: 0; margin: 24px 0 0; padding: 0; }
+
+.metric legend { padding: 0; margin-bottom: 6px; font-size: 15px; }
+
+.metric label { display: block; padding: 3px 0; cursor: pointer; }
+
+.metric input { accent-color: #ff4b4b; }
+
+.years { margin-top: 20px; }
+
+.years .label { margin: 0 0 6px; font-size: 15px; }
+
+.range-row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    align-items: center;
+    gap: 8px;
+}
+
+.range-row input { width: 100%; accent-color: #ff4b4b; }
+
+.range-row output { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------- Main ---------- */
+.main { padding: 40px 48px 32px; min-width: 0; }
+
+.header { text-align: center; padding: 20px; }
+
+.header h1 { font-size: clamp(30px, 4vw, 46px); margin: 0 0 12px; line-height: 1.15; }
+
+.header p { font-size: 18px; margin: 0; color: #023e8a; }
+
+.status { text-align: center; min-height: 1.4em; color: #023e8a; }
+
+.kpis {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+/* KPI cards */
+.kpi-card {
+    background: linear-gradient(135deg, #0077b6, #0096c7);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: 700;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.kpi-card:hover { transform: scale(1.05); }
+
+.kpi-card b { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+
+.kpi-card small { font-size: 15px; font-weight: 600; }
+
+hr { border: 0; border-top: 1px solid rgba(2, 62, 138, 0.25); margin: 32px 0 8px; }
+
+.chart-block { margin-top: 28px; }
+
+.chart-block h2 { font-size: 17px; margin: 0 0 8px; }
+
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.note { font-size: 14px; color: #023e8a; margin: 6px 0 0; }
+
+.download {
+    margin-top: 28px;
+    padding: 9px 14px;
+    border: 1px solid #D0D4DA;
+    border-radius: 8px;
+    background: #FFFFFF;
+    color: #262730;
+    font: inherit;
+    cursor: pointer;
+}
+
+.download:hover { border-color: #00b4d8; color: #0077b6; }
+
+.footer { margin-top: 36px; font-size: 14px; color: #023e8a; }
+
+.footer a { color: #023e8a; }
+
+.tooltip {
+    position: absolute;
+    z-index: 50;
+    pointer-events: none;
+    background: #FFFFFF;
+    color: #262730;
+    border: 1px solid #0077b6;
+    border-radius: 6px;
+    padding: 7px 10px;
+    font-size: 13px;
+    line-height: 1.4;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:focus-visible, select:focus-visible, input:focus-visible {
+    outline: 3px solid #ff4b4b;
+    outline-offset: 2px;
+}
+
+/* ---------- Phones and small tablets ---------- */
+@media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; }
+    .state-list { max-height: 260px; overflow-y: auto; padding-right: 6px; }
+    .main { padding: 24px 16px; }
+    .kpis { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body { animation: none; }
+    .kpi-card { transition: none; }
+}
+
+.chart svg .tick text { font-size: 12px; }
