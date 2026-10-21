@@ -7,17 +7,21 @@
     <meta name="description" content="Explore 75 years of U.S. commercial fisheries landings (1950–2024) by state, year, pounds and dollars.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
     <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 </head>
 <body>
 
-<div class="layout">
+<div class="layout" id="layout">
+    <div class="scrim" id="scrim" hidden></div>
 
     <!-- ================= SIDEBAR ================= -->
-    <aside class="sidebar" aria-label="Filters">
-        <h2>Filters</h2>
+    <aside class="sidebar" id="sidebar" aria-label="Filters">
+        <div class="side-top">
+            <h2>Filters</h2>
+            <button type="button" class="close-btn" id="close-filters" aria-controls="sidebar">Close</button>
+        </div>
 
         <h3>Quick Actions</h3>
         <button type="button" class="side-btn" id="select-all">Select All States</button>
@@ -53,6 +57,7 @@
     <!-- ================= MAIN ================= -->
     <main class="main">
         <header class="header">
+            <button type="button" class="open-btn" id="open-filters" aria-controls="sidebar" aria-expanded="true">Filters</button>
             <h1>Offshore Fisheries Analytics Dashboard</h1>
             <p>Exploring U.S. Commercial Fisheries Landings</p>
         </header>
@@ -93,6 +98,6 @@
     </main>
 </div>
 
-<script src="app.js?v=2"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
